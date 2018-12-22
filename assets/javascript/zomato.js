@@ -175,55 +175,6 @@ function populateDropDown(myCity) {
 
 }
 
-function showMap() {
-    console.log(this);
-    var end = $(this).attr("endAddress");
-    console.log(end);
-   
-
-    var start;
-    database.ref("startAddress").once('value', function (snap) {
-        
-        start = snap.val();
-
-        console.log(start);
-         var queryURL = "http://www.mapquestapi.com/directions/v2/route?key=" + mqapikey + "&from=" +
-            start + "&to=" + end;
-
-
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        })
-
-            .then(function (response) {
-                console.log(response);
-
-                var results = response;
-                var distance = results.route.distance;
-                var time = results.route.time;
-                var coordinates1 = results.route.boundingBox.ul.lng;
-                var coordinates2 = results.route.boundingBox.ul.lat;
-                var coordinates3 = results.route.boundingBox.lr.lng;
-                var coordinates4 = results.route.boundingBox.lr.lat;
-                
-                var queryURL = "http://www.mapquestapi.com/traffic/v2/incidents?key=" + mqapikey + "&boundingBox=" +
-                    coordinates1 +","+ coordinates2 + ","+ coordinates3 + ","+ coordinates4 + "&filters=construction,incidents";
-
-
-                $.ajax({
-                    url: queryURL,
-                    method: "GET"
-                }).then(function (response) {
-                    console.log(response);
-                    var numIncidents = response.incidents.length;
-                    console.log("Traffic = " + numIncidents);
-                })
-            })
-    });
-};
-
-
 
 
 
