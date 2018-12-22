@@ -1,21 +1,96 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html>
 
 <head>
+    <title>Dine & Dash</title>
+    <!-- Linking to local file stylesheets -->
+    
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!-- Linking to Bootstrap API-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <!-- Linking to Bootstrap - Date Picker-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css">
+    <!-- JQuery.js Reference -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Moment.js Reference -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <!-- FullCalendar Reference -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/fullcalendar.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/fullcalendar.min.css" />
 
-  <meta charset="UTF-8">
-  <title>Project1</title>
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-
+    <!-- Linking to Firebase CDN -->
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+     <!--  Linking to Google Fonts API (Mono-Space)-->
+    <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display" rel="stylesheet">
 </head>
 
 <body>
+    <div class="parallax"></div>
+    <div style="height:800px;">
+        <div class="site-wrapper">
+            <div class="site-wrapper-inner">
+                <div class="container">
+                    <div class="masthead clearfix">
+                        <div class="container inner">
+                            <h3 class="masthead-brand">Dine & Dash</h3>
+                            <nav>
+                                <ul class="nav masthead-nav">
+                                    <li class="active"><a href="#">Home</a></li>
+                                    <li><a href="#">Past Travel Plans</a></li>
+                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="#">Contact</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="jumbotron text-center" id="jumbo1">
+                    <div class="inner cover">
+                        <i>
+                            <h1 class="cover-heading"></h1>
+                            <img src="assets/images/logo.png">
+                            <p class="lead">Don't Travel On An Empty Stomach</p>
+                            <p class="lead">
+                                <a href="#" class="btn btn-lg btn-primary">Get Started on a New Adventure!</a>
+                            </p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-  
-  <h1>Here is our header</h1>
-  
+    </div>
+    <div class="ParallaxVideo">
+        <video autoplay muted loop>
+            <source src="assets/css/car.mp4" type="video/mp4">
+        </video>
+        <h1>Choose Your Destination...</h1>
+    </div>
+    <div class="parallax2"></div>
+    <div class="jumbotron text-center" id="jumbo2">
+        <div class="inner cover">
+            <div class="cover-2"></div>
+            <i>
+                <h1 class="coverDOS"></h1>
+                <img src="assets/images/logo.png">
+                <p class="lead"></p>
+                <p class="lead">
+                    <a href="#" class="btn btn-lg btn-default">Test</a>
+                </p>
+        </div>
+    </div>
+
+    </div>
+    </div>
+
+    </div>
+    <!-- Script -->
+    <script type='text/javascript' src='assets/javascript/config.js'></script>
+    <script src="assets/javascript/projCalendar.js"></script>
+    <script src="assets/javascript/zomato.js"></script>
+    <script src="assets/javascript/mquest.js"></script>
+
+
 </body>
 
 </html>
