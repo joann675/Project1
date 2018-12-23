@@ -25,9 +25,16 @@ var myApiKey = zomatoKey;
 
 // Assumes we already have city id and cuisine id
 $("#getRestaurants").on("click", function () {
+    var cuisineString =  $("#cuisine").val();
+    var cuisineArray = cuisineString.split(","); 
+    cuisineId = cuisineArray[0];
+    console.log(cuisineId);
+    // database.ref("startAddress").push($("#startAddress").val().trim());
+
+
 
     $.ajax({
-
+        
         url: "https://developers.zomato.com/api/v2.1/search?entity_id=" + cityId + "&entity_type=city&cuisines="
             + cuisineId + "&sort=cost",
         dataType: 'json',
@@ -47,6 +54,7 @@ $("#getRestaurants").on("click", function () {
 
                 );
                 newRow.attr("endAddress", restaurantArray[i].restaurant.location.address);
+                newRow.attr("restaurantName", restaurantArray[i].restaurant.name);
                 newRow.on("click", showMap);
 
                 // Append the new row to the table
@@ -60,12 +68,6 @@ $("#getRestaurants").on("click", function () {
 
 });
 
-$("#getCuisines").on("click", function () {
-    myCity = $("#cityName").val().trim();
-    populateDropDown(myCity);
-
-
-});
 
 
 function getCityCodeAndListOfCuisines(city) {
@@ -116,7 +118,10 @@ function getListOfCuisines(cityId) {
             // Creates local "temporary" object for holding city data
             database.ref("cuisines").remove();
             console.log(response);
-            console.log("length = " + response.cuisines.length);
+            console.log("length = " + response.cuisines.length);          
+		
+
+            $("#cuisine").empty();
             for (var i = 0; i < response.cuisines.length; i++) {
 
                 var newCuisine = {
@@ -127,17 +132,11 @@ function getListOfCuisines(cityId) {
                 };
 
                 database.ref("cuisines").push(newCuisine);
-                var newRow = $("<tr class='item'>").append(
-                    $("<td class='cuisine'>").text(response.cuisines[i].cuisine.cuisine_name),
 
 
+                $("#cuisine").append("<option>" + response.cuisines[i].cuisine.cuisine_id+","+response.cuisines[i].cuisine.cuisine_name + "</option>");
 
-                );
-                newRow.attr("cuisineId", response.cuisines[i].cuisine.cuisine_id);
-                newRow.on("click", setCuisineId);
 
-                // Append the new row to the table
-                $("#CuisineList > tbody").append(newRow);
             }
 
 
@@ -151,14 +150,15 @@ function setCuisineId() {
 
 }
 
-function populateDropDown(myCity) {
+$("#cityName").change(function () {
+    myCity = $("#cityName").val();
 
     // Check if myCity is already in database
     var cityExists = false;
     database.ref("cities").once('value', function (snap) {
 
         snap.forEach(function (cityData) {
-            
+
             if (cityData.val().name === myCity) {
                 console.log("Found City data = " + cityData)
                 cityId = cityData.val().id;
@@ -173,15 +173,7 @@ function populateDropDown(myCity) {
 
     });
 
-}
-
-
-
-
-
-
-
-
+})
 
 
 
