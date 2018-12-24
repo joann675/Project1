@@ -5,64 +5,74 @@ var database = firebase.database();
 var start;
 var end;
 var restaurantName;
+var dateString;
 function showMap() {
     console.log(this);
     end = $(this).attr("endAddress");
+    restaurantName = $(this).attr("restaurantName");
+    
+    var convertedDate =  moment($("#date").val(), "MM/DD/YYYY");
+    dateString = convertedDate.format("YYYY/MM/DD");
+    console.log("Date string = " + dateString);
+    console.log("Restaurant name " + restaurantName);
     console.log("Ending address " + end);
 
-    database.ref("startAddress").once('value', function (snap) {
-
-        start = snap.val();
-
-        console.log("Starting address  " + start);
-        $("#RestaurantList > tbody").remove();
-        var queryURL = "http://www.mapquestapi.com/directions/v2/route?key=" + myapikey + "&from=" +
-            start + "&to=" + end;
 
 
-        $.ajax({
-            url: queryURL,
-            method: "GET"
+    start = $("#startAddress").val().trim();
+
+    console.log("Starting address  " + start);
+    $("#RestaurantList > tbody").remove();
+    var queryURL = "http://www.mapquestapi.com/directions/v2/route?key=" + myapikey + "&from=" +
+        start + "&to=" + end;
+
+
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    })
+
+        .then(function (response) {
+            console.log(response);
+
+            var results = response;
+            var distance = results.route.distance;
+            var time = results.route.time;
+            var coordinates1 = results.route.boundingBox.ul.lng;
+            var coordinates2 = results.route.boundingBox.ul.lat;
+            var coordinates3 = results.route.boundingBox.lr.lng;
+            var coordinates4 = results.route.boundingBox.lr.lat;
+
+            var imageSrc = "https://www.mapquestapi.com/staticmap/v5/map?start=" + start + "&end=" + end + "&size=@2x&key=" + myapikey;
+            console.log(imageSrc);
+            var newImage = $("<img>");
+            newImage.attr("src", imageSrc);
+            var newButton = $("<button>");
+            newButton.html("Save Trip");
+            newButton.on("click", saveTrip);
+            $("#mapImage").append(newImage);
+            $("#mapImage").append(newButton);
+
+
+
+
         })
 
-            .then(function (response) {
-                console.log(response);
-
-                var results = response;
-                var distance = results.route.distance;
-                var time = results.route.time;
-                var coordinates1 = results.route.boundingBox.ul.lng;
-                var coordinates2 = results.route.boundingBox.ul.lat;
-                var coordinates3 = results.route.boundingBox.lr.lng;
-                var coordinates4 = results.route.boundingBox.lr.lat;
-
-                var imageSrc = "https://www.mapquestapi.com/staticmap/v5/map?start=" + start + "&end=" + end + "&size=@2x&key=" + myapikey;
-                console.log(imageSrc);
-                var newImage = $("<img>");
-                newImage.attr("src", imageSrc);
-                var newButton = $("<button>");
-                newButton.html("Save Trip");
-                newButton.on("click", saveTrip);
-                $("#mapImage").append(newImage);
-                $("#mapImage").append(newButton);
-
-
-
-
-            })
-    });
 };
 
 function saveTrip() {
+    console.log("In save trip");
+    
+    
     var newTrip = {
-        date: "01/01/2019",
+        date: dateString,
         city: myCity,
-        restaurantName: "Houlihans",
+        restaurantName: restaurantName,
         restaurantAddr: end,
         startLoc: start
 
-
     };
+    console.log(newTrip);
 
     database.ref("trips").push(newTrip);
 }
