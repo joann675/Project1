@@ -94,12 +94,19 @@ $(document).ready(function () {
 
         })
 
-
         $('#calendar').fullCalendar({
             weekends: true,
             defaultView: 'month',
-            events: eventArray
-
+            views: {
+                listMonth: { buttonText: 'list month' }
+              },
+              header: {
+                left: 'title',
+                center: '',
+                right: 'today,month,listMonth,prev,next'
+              },
+            events: eventArray,
+ 
         })
     });
 });
