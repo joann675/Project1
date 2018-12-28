@@ -10,6 +10,7 @@ function showMap() {
     console.log(this);
     end = $(this).attr("endAddress");
     restaurantName = $(this).attr("restaurantName");
+    console.log("Date = " + $("#date").val());
     
     var convertedDate =  moment($("#date").val(), "MM/DD/YYYY");
     dateString = convertedDate.format("YYYY/MM/DD");
@@ -47,11 +48,21 @@ function showMap() {
             console.log(imageSrc);
             var newImage = $("<img>");
             newImage.attr("src", imageSrc);
+            newImage.attr("height", "25%");
+            newImage.attr("width", "25%");
+            var newDiv = $("<div>");
+            var heading = $("<h2>");
+            heading.text("Trip Details");
+            var distanceString = $("<h4>");
+            distanceString.text("Total Distance = " + distance + " miles");
+            var timeString = $("<h4>");
+            timeString.text("Total Time = " + time/60 + " minutes")
             var newButton = $("<button>");
             newButton.html("Save Trip");
             newButton.on("click", saveTrip);
+            newDiv.append(heading, distanceString, timeString, newButton);
             $("#mapImage").append(newImage);
-            $("#mapImage").append(newButton);
+            $("#mapImage").append(newDiv);
 
 
 
@@ -66,7 +77,7 @@ function saveTrip() {
     
     var newTrip = {
         date: dateString,
-        city: myCity,
+        city: myCityAndState,
         restaurantName: restaurantName,
         restaurantAddr: end,
         startLoc: start
