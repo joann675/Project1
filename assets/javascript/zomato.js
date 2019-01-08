@@ -18,25 +18,25 @@ myConfig.messagingSenderId = config.messagingSenderId
 firebase.initializeApp(myConfig);
 
 var database = firebase.database();
-var myCity = "";
+var myCityAndState = "";
 var cityId = "3784";
 var cuisineId = "25";
 var myApiKey = zomatoKey;
 
 // Assumes we already have city id and cuisine id
 $("#getRestaurants").on("click", function () {
-    var cuisineString =  $("#cuisine").val();
-    var cuisineArray = cuisineString.split(","); 
+    var cuisineString = $("#cuisine").val();
+    var cuisineArray = cuisineString.split(",");
     cuisineId = cuisineArray[0];
     console.log(cuisineId);
     // database.ref("startAddress").push($("#startAddress").val().trim());
 
 
-
+    var url = "https://developers.zomato.com/api/v2.1/search?entity_id=" + cityId + "&entity_type=city&cuisines="
+    + cuisineId + "&sort=rating";
     $.ajax({
-        
-        url: "https://developers.zomato.com/api/v2.1/search?entity_id=" + cityId + "&entity_type=city&cuisines="
-            + cuisineId + "&sort=cost",
+
+        url: url,
         dataType: 'json',
         async: true,
         beforeSend: function (xhr) {
@@ -44,7 +44,9 @@ $("#getRestaurants").on("click", function () {
                 myApiKey);
         },  // This inserts the api key into the HTTP header
         success: function (response) {
-            $("#CuisineList > tbody").remove();
+            console.log("Url = " + url);
+            $("#RestaurantList > tbody").empty();
+           
             console.log(response);
             var restaurantArray = response.restaurants;
             for (var i = 0; i < restaurantArray.length; i++) {
@@ -70,12 +72,14 @@ $("#getRestaurants").on("click", function () {
 
 
 
-function getCityCodeAndListOfCuisines(city) {
-    console.log("Getting city code through ajax for " + city);
+function getCityCodeAndListOfCuisines(cityAndState) {
+    
+
+    console.log("Getting city code through ajax for " + cityAndState);
 
     $.ajax({
 
-        url: "https://developers.zomato.com/api/v2.1/cities?q=" + city,
+        url: "https://developers.zomato.com/api/v2.1/cities?q=" + cityAndState,
         dataType: 'json',
         async: true,
         beforeSend: function (xhr) {
@@ -85,16 +89,28 @@ function getCityCodeAndListOfCuisines(city) {
         success: function (response) {
             console.log(response);
             // Creates local "temporary" object for holding city data
-            var newCity = {
-                name: city,
-                id: response.location_suggestions[0].id,
+            var found = false;
+            for (var i = 0; i < response.location_suggestions.length; i++) {
+                console.log("Comparing <" + response.location_suggestions[i].name + "> to <" + cityAndState + ">");
+                if (response.location_suggestions[i].name === cityAndState) {
+                    console.log("Found a match");
+                    found = true;
+                    var newCity = {
+                        name: cityAndState,
+                        id: response.location_suggestions[i].id,
 
-            };
+                    };
+                    console.log("About to push city to database for " + newCity.name);
+                    // Uploads city data to the database
+                    database.ref("cities").push(newCity);
+                    cityId = newCity.id;
+                    getListOfCuisines();
+                    break;
+                }
 
+            }
 
-            // Uploads city data to the database
-            database.ref("cities").push(newCity);
-            getListOfCuisines(response.location_suggestions[0].id);
+   
 
 
         }
@@ -102,7 +118,7 @@ function getCityCodeAndListOfCuisines(city) {
 }
 
 
-function getListOfCuisines(cityId) {
+function getListOfCuisines() {
     console.log("Getting list of cuisines through ajax for " + cityId);
 
     $.ajax({
@@ -118,8 +134,8 @@ function getListOfCuisines(cityId) {
             // Creates local "temporary" object for holding city data
             database.ref("cuisines").remove();
             console.log(response);
-            console.log("length = " + response.cuisines.length);          
-		
+            console.log("length = " + response.cuisines.length);
+
 
             $("#cuisine").empty();
             for (var i = 0; i < response.cuisines.length; i++) {
@@ -131,10 +147,10 @@ function getListOfCuisines(cityId) {
 
                 };
 
-                database.ref("cuisines").push(newCuisine);
+                // database.ref("cuisines").push(newCuisine);
 
 
-                $("#cuisine").append("<option>" + response.cuisines[i].cuisine.cuisine_id+","+response.cuisines[i].cuisine.cuisine_name + "</option>");
+                $("#cuisine").append("<option>" + response.cuisines[i].cuisine.cuisine_id + "," + response.cuisines[i].cuisine.cuisine_name + "</option>");
 
 
             }
@@ -151,7 +167,15 @@ function setCuisineId() {
 }
 
 $("#cityName").change(function () {
-    myCity = $("#cityName").val();
+    myCityAndState = $("#cityName").val();
+    var cityAndStateArray = myCityAndState.split(",");
+    var myCity = cityAndStateArray[0];
+    myCity = myCity.charAt(0).toUpperCase() + myCity.slice(1).toLowerCase();
+
+    var myState = cityAndStateArray[1];
+    myState = myState.toUpperCase().trim();
+    myCityAndState = myCity + ", " + myState;
+
 
     // Check if myCity is already in database
     var cityExists = false;
@@ -159,15 +183,15 @@ $("#cityName").change(function () {
 
         snap.forEach(function (cityData) {
 
-            if (cityData.val().name === myCity) {
+            if (cityData.val().name === myCityAndState) {
                 console.log("Found City data = " + cityData)
                 cityId = cityData.val().id;
                 cityExists = true;
-                getListOfCuisines(cityId);
+                getListOfCuisines();
             }
         });
         if (cityExists === false)
-            cityId = getCityCodeAndListOfCuisines(myCity);
+            getCityCodeAndListOfCuisines(myCityAndState);
 
 
 
