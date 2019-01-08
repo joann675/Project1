@@ -73,15 +73,13 @@ $("#getRestaurants").on("click", function () {
 
 
 function getCityCodeAndListOfCuisines(cityAndState) {
-    var cityAndStateArray = cityAndState.split(",");
-    var city = cityAndStateArray[0];
-    var state = cityAndStateArray[1].trim();
+    
 
-    console.log("Getting city code through ajax for " + city);
+    console.log("Getting city code through ajax for " + cityAndState);
 
     $.ajax({
 
-        url: "https://developers.zomato.com/api/v2.1/cities?q=" + city,
+        url: "https://developers.zomato.com/api/v2.1/cities?q=" + cityAndState,
         dataType: 'json',
         async: true,
         beforeSend: function (xhr) {
@@ -93,12 +91,12 @@ function getCityCodeAndListOfCuisines(cityAndState) {
             // Creates local "temporary" object for holding city data
             var found = false;
             for (var i = 0; i < response.location_suggestions.length; i++) {
-                console.log("Comparing <" + response.location_suggestions[i].state_code + "> to <" + state + ">");
-                if (response.location_suggestions[i].state_code === state) {
+                console.log("Comparing <" + response.location_suggestions[i].name + "> to <" + cityAndState + ">");
+                if (response.location_suggestions[i].name === cityAndState) {
                     console.log("Found a match");
                     found = true;
                     var newCity = {
-                        name: city + ", " + state,
+                        name: cityAndState,
                         id: response.location_suggestions[i].id,
 
                     };
@@ -149,7 +147,7 @@ function getListOfCuisines() {
 
                 };
 
-                database.ref("cuisines").push(newCuisine);
+                // database.ref("cuisines").push(newCuisine);
 
 
                 $("#cuisine").append("<option>" + response.cuisines[i].cuisine.cuisine_id + "," + response.cuisines[i].cuisine.cuisine_name + "</option>");
@@ -193,7 +191,7 @@ $("#cityName").change(function () {
             }
         });
         if (cityExists === false)
-            cityId = getCityCodeAndListOfCuisines(myCityAndState);
+            getCityCodeAndListOfCuisines(myCityAndState);
 
 
 
