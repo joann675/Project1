@@ -19,7 +19,8 @@ firebase.initializeApp(myConfig);
 
 var database = firebase.database();
 var myCityAndState = "";
-var cityId = "3784";
+var citylat = "";
+var citylon = "";
 var cuisineId = "25";
 var myApiKey = zomatoKey;
 
@@ -33,7 +34,7 @@ $("#getRestaurants").on("click", function () {
 
 
     var url = "https://developers.zomato.com/api/v2.1/search?entity_id=" + cityId + "&entity_type=city&cuisines="
-    + cuisineId + "&sort=rating";
+        + cuisineId + "&sort=rating";
     $.ajax({
 
         url: url,
@@ -46,7 +47,7 @@ $("#getRestaurants").on("click", function () {
         success: function (response) {
             console.log("Url = " + url);
             $("#RestaurantList > tbody").empty();
-           
+
             console.log(response);
             var restaurantArray = response.restaurants;
             for (var i = 0; i < restaurantArray.length; i++) {
@@ -72,58 +73,37 @@ $("#getRestaurants").on("click", function () {
 
 
 
-function getCityCodeAndListOfCuisines(cityAndState) {
+function getCityCoordinatesAndListOfCuisines(cityAndState) {
+
+
+    console.log("Getting city coordinates through ajax for " + cityAndState);
+    var coordinates = getCoordinates(cityAndState);
+    citylat = coordinates.lat;
+    citylon = coordinates.lon;
+    var newCity = {
+        name: cityAndState,
+        lat: citylat,
+        lon: citylon
+
+    };
+    console.log("About to push city to database for " + newCity.name);
+    // Uploads city data to the database
+    database.ref("cities").push(newCity);
+
+    getListOfCuisines();
     
-
-    console.log("Getting city code through ajax for " + cityAndState);
-
-    $.ajax({
-
-        url: "https://developers.zomato.com/api/v2.1/cities?q=" + cityAndState,
-        dataType: 'json',
-        async: true,
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader('user-key',
-                myApiKey);
-        },  // This inserts the api key into the HTTP header
-        success: function (response) {
-            console.log(response);
-            // Creates local "temporary" object for holding city data
-            var found = false;
-            for (var i = 0; i < response.location_suggestions.length; i++) {
-                console.log("Comparing <" + response.location_suggestions[i].name + "> to <" + cityAndState + ">");
-                if (response.location_suggestions[i].name === cityAndState) {
-                    console.log("Found a match");
-                    found = true;
-                    var newCity = {
-                        name: cityAndState,
-                        id: response.location_suggestions[i].id,
-
-                    };
-                    console.log("About to push city to database for " + newCity.name);
-                    // Uploads city data to the database
-                    database.ref("cities").push(newCity);
-                    cityId = newCity.id;
-                    getListOfCuisines();
-                    break;
-                }
-
-            }
-
-   
-
-
-        }
-    });
 }
 
 
+
+
+
 function getListOfCuisines() {
-    console.log("Getting list of cuisines through ajax for " + cityId);
+    console.log("Getting list of cuisines through ajax for " + citylat + "," + citylon);
 
     $.ajax({
 
-        url: "https://developers.zomato.com/api/v2.1/cuisines?city_id=" + cityId,
+        url: "https://developers.zomato.com/api/v2.1/cuisines?lat=" + citylat + "&lon=" + citylon,
         dataType: 'json',
         async: true,
         beforeSend: function (xhr) {
@@ -183,15 +163,16 @@ $("#cityName").change(function () {
 
         snap.forEach(function (cityData) {
 
-            if (cityData.val().name === myCityAndState) {
+            if (cityData.val().name.toLowerCase() === myCityAndState.toLowerCase()) {
                 console.log("Found City data = " + cityData)
-                cityId = cityData.val().id;
+                citylat = cityData.val().lat;
+                citylon = cityData.val().lon;
                 cityExists = true;
                 getListOfCuisines();
             }
         });
         if (cityExists === false)
-            getCityCodeAndListOfCuisines(myCityAndState);
+            getCityCoordinatesAndListOfCuisines(myCityAndState);
 
 
 

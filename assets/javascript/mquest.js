@@ -6,6 +6,28 @@ var start;
 var end;
 var restaurantName;
 var dateString;
+
+function getCoordinates(CityAndState) {
+    console.log("location"+ CityAndState);
+    var queryURL = "http://www.mapquestapi.com/geocoding/v1/address?"+myapikey+"location="+CityAndState;
+ 
+    $.ajax({
+        url:queryURL,
+        method: "GET"
+    })
+    .then(function (response){
+        console.log(response);
+        var coordinatesLat= results.location.latLng.lat;
+        var coordinatesLng= results.location.latLng.lng;
+        
+        return {
+            lat:coordinatesLat,
+            lon:coordinatesLng
+        }
+    })
+ }
+
+
 function showMap() {
     console.log(this);
     end = $(this).attr("endAddress");
