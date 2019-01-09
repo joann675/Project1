@@ -32,8 +32,8 @@ $("#getRestaurants").on("click", function () {
     console.log(cuisineId);
     // database.ref("startAddress").push($("#startAddress").val().trim());
 
-    
-    var url = "https://developers.zomato.com/api/v2.1/search?lat=" + citylat + "&lon="+citylon +"&cuisines="
+
+    var url = "https://developers.zomato.com/api/v2.1/search?lat=" + citylat + "&lon=" + citylon + "&cuisines="
         + cuisineId + "&sort=rating";
     $.ajax({
 
@@ -73,34 +73,16 @@ $("#getRestaurants").on("click", function () {
 
 
 
-function getCityCoordinatesAndListOfCuisines(cityAndState) {
-
-
-    console.log("Getting city coordinates through ajax for " + cityAndState);
-    var coordinates = getCoordinates(cityAndState);
-    citylat = coordinates.lat;
-    citylon = coordinates.lon;
-    var newCity = {
-        name: cityAndState,
-        lat: citylat,
-        lon: citylon
-
-    };
-    console.log("About to push city to database for " + newCity.name);
-    // Uploads city data to the database
-    database.ref("cities").push(newCity);
-
-    getListOfCuisines();
-    
-}
 
 
 
 
 
-function getListOfCuisines() {
+
+function getListOfCuisines(lat,lon) {
     console.log("Getting list of cuisines through ajax for " + citylat + "," + citylon);
-
+    citylat = lat;
+    citylon = lon;
     $.ajax({
 
         url: "https://developers.zomato.com/api/v2.1/cuisines?lat=" + citylat + "&lon=" + citylon,
@@ -165,14 +147,14 @@ $("#cityName").change(function () {
 
             if (cityData.val().name.toLowerCase() === myCityAndState.toLowerCase()) {
                 console.log("Found City data = " + cityData)
-                citylat = cityData.val().lat;
-                citylon = cityData.val().lon;
+                var lat = cityData.val().lat;
+                var lon = cityData.val().lon;
                 cityExists = true;
-                getListOfCuisines();
+                getListOfCuisines(lat, lon);
             }
         });
         if (cityExists === false)
-            getCityCoordinatesAndListOfCuisines(myCityAndState);
+            getCoordinates(myCityAndState);
 
 
 
