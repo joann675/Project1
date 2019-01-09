@@ -32,8 +32,8 @@ $("#getRestaurants").on("click", function () {
     console.log(cuisineId);
     // database.ref("startAddress").push($("#startAddress").val().trim());
 
-
-    var url = "https://developers.zomato.com/api/v2.1/search?entity_id=" + cityId + "&entity_type=city&cuisines="
+    
+    var url = "https://developers.zomato.com/api/v2.1/search?lat=" + citylat + "&lon="+citylon +"&cuisines="
         + cuisineId + "&sort=rating";
     $.ajax({
 
