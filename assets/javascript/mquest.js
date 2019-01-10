@@ -9,7 +9,7 @@ var dateString;
 
 function getCoordinates(CityAndState) {
     console.log("location" + CityAndState);
-    var queryURL = "http://www.mapquestapi.com/geocoding/v1/address?key=" + myapikey + "&location=" + CityAndState;
+    var queryURL = "https://www.mapquestapi.com/geocoding/v1/address?key=" + myapikey + "&location=" + CityAndState;
 
     $.ajax({
         url: queryURL,
@@ -54,7 +54,7 @@ function showMap() {
 
     console.log("Starting address  " + start);
     $("#RestaurantList > tbody").remove();
-    var queryURL = "http://www.mapquestapi.com/directions/v2/route?key=" + myapikey + "&from=" +
+    var queryURL = "https://www.mapquestapi.com/directions/v2/route?key=" + myapikey + "&from=" +
         start + "&to=" + end;
 
 
