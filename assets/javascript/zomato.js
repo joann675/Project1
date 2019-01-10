@@ -73,13 +73,7 @@ $("#getRestaurants").on("click", function () {
 
 
 
-
-
-
-
-
-
-function getListOfCuisines(lat,lon) {
+function getListOfCuisines(lat, lon) {
     console.log("Getting list of cuisines through ajax for " + citylat + "," + citylon);
     citylat = lat;
     citylon = lon;
@@ -130,7 +124,9 @@ function setCuisineId() {
 
 $("#cityName").change(function () {
     myCityAndState = $("#cityName").val();
+    console.log(myCityAndState);
     var cityAndStateArray = myCityAndState.split(",");
+    console.log(cityAndStateArray);
     var myCity = cityAndStateArray[0];
     myCity = myCity.charAt(0).toUpperCase() + myCity.slice(1).toLowerCase();
 
