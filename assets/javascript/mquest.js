@@ -82,11 +82,11 @@ function showMap() {
             newImage.attr("width", "25%");
             var newDiv = $("<div>");
             var heading = $("<h2>");
-            heading.text("Trip Details");
+            heading.text("Trip Details - "+ restaurantName);
             var distanceString = $("<h4>");
-            distanceString.text("Total Distance = " + distance + " miles");
+            distanceString.text("Total Distance = " + distance.toFixed(2) + " miles");
             var timeString = $("<h4>");
-            timeString.text("Total Time = " + time / 60 + " minutes")
+            timeString.text("Total Time = " + (time / 60).toFixed(2) + " minutes")
             var newButton = $("<button>");
             newButton.html("Save Trip");
             newButton.on("click", saveTrip);
