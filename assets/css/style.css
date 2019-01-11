@@ -75,6 +75,14 @@ body {
 .masthead-brand {
   margin-top: 10px;
   margin-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 20px;
+  background-color: whitesmoke;
+  opacity: 0.8;
+  font-family: 'Major Mono Display', monospace;
+
+
 }
 
 .masthead-nav > li {
@@ -153,12 +161,13 @@ body {
 
 .parallax2 {
   background-image: url("drive.jpg");
-  min-height: 200px; 
+  min-height: 400px; 
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   }
+
 
   .parallax3 {
   background-image: url("hand.jpg");
@@ -168,6 +177,15 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   }
+
+  .parallax4 {
+    background-image: url("dinner.jpg");
+    min-height: 600px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
 
 .ParallaxImage {
   background-attachment: fixed;
@@ -205,3 +223,15 @@ body {
     text-align: center;
     text-transform: uppercase;
   }
+
+  .ParallaxVideo2{ 
+    height: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px; 
+    }
+    .ParallaxVideo2 video{ 
+    min-width: 10%;
+    position: absolute;
+    z-index: -999;
+    
+    }
