@@ -86,7 +86,7 @@ function showMap() {
             var distanceString = $("<h4>");
             distanceString.text("Total Distance = " + distance.toFixed(2) + " miles");
             var timeString = $("<h4>");
-            timeString.text("Total Time = " + (time / 60).toFixed(2) + " minutes")
+            timeString.text("Total Time = " + (time / 60).toFixed(0) + " minutes")
             var newButton = $("<button>");
             newButton.html("Save Trip");
             newButton.on("click", saveTrip);
