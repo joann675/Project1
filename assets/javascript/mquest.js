@@ -82,7 +82,7 @@ function showMap() {
             newImage.attr("width", "25%");
             var newDiv = $("<div>");
             var heading = $("<h2>");
-            heading.text("Trip Details");
+            heading.text("Trip Details - "+ restaurantName);
             var distanceString = $("<h4>");
             distanceString.text("Total Distance = " + distance.toFixed(2) + " miles");
             var timeString = $("<h4>");
