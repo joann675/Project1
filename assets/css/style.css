@@ -1,26 +1,38 @@
-
 /* Hoovers for Links*/
 a,
 a:focus,
 a:hover {
-  color: #fff;
+  color: black;
   font-family: 'Aleo', serif;
 
 }
 
-/* Default Buttons */
+/* Buttons & Links */
 .btn-primary,
 .btn-primary:hover,
 .btn-primary:focus {
-  color: darkblue;
+  color: black;
   text-shadow: none;
-  background-color: #fff;
   border: 1px solid #fff;
   font-family: 'Aleo', serif;
 
 }
 
-/*Structure*/
+li {
+  background-color: white;
+  font-style: bolder;
+  opacity: 0.7;
+  font-family: 'Aleo', serif;
+}
+
+.profile {
+  font-family: 'Lobster', cursive;
+  font-style: bolder;
+  font-size: 50px;
+
+}
+
+/* Structure */
 
 html, 
 body {
@@ -45,7 +57,11 @@ body {
   text-shadow: 0 1px 3px rgba(0,0,0,.5);
 }
 
-/* Extra markup and styles for table-esque vertical and horizontal centering */
+h3{
+  font-family: 'Rajdhani', sans-serif;
+}
+
+/* Wrappers and Containers */
 .site-wrapper {
   display: table;
   width: 100%;
@@ -63,15 +79,14 @@ body {
   margin-left: auto;
 }
 
-/* Padding for spacing */
+/* Padding */
 .inner {
   padding: 30px;
 }
 
 
-/*
- * Header
- */
+/* Header */
+
 .masthead-brand {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -82,30 +97,33 @@ body {
   opacity: 0.8;
   font-family: 'Major Mono Display', monospace;
 
-
 }
 
 .masthead-nav > li {
   display: inline-block;
 }
+
 .masthead-nav > li + li {
   margin-left: 20px;
 }
+
 .masthead-nav > li > a {
   padding-right: 0;
   padding-left: 0;
   font-size: 16px;
   font-weight: bold;
   color: #fff; /* IE8 proofing */
-  color: rgba(255,255,255,.75);
+  color: black;
   border-bottom: 2px solid transparent;
 }
+
 .masthead-nav > li > a:hover,
 .masthead-nav > li > a:focus {
   background-color: transparent;
   border-bottom-color: #a9a9a9;
   border-bottom-color: rgba(255,255,255,.25);
 }
+
 .masthead-nav > .active > a,
 .masthead-nav > .active > a:hover,
 .masthead-nav > .active > a:focus {
@@ -113,6 +131,7 @@ body {
   border-bottom-color: #fff;
 }
 
+/* Mobile Responsive */
 @media (min-width: 768px) {
   .masthead-brand {
     float: left;
@@ -120,40 +139,44 @@ body {
   .masthead-nav {
     float: right;
   }
+
+/* Cover */
+.cover-heading {
+  color: white;
+  style:bolder;
+  font-family: 'Bree Serif', serif;
+  font-size: 40px;
+  
 }
-
-
-/*
- * Cover
- */
 
 .cover {
   padding: 0 20px;
 }
+
 .cover .btn-lg {
   padding: 10px 20px;
   font-weight: bold;
 }
 
-/*
- * Affix and center
- */
+/* Media Responsive/Vertical Centering */
 
 @media (min-width: 768px) {
-  /* Pull out the header and footer */
   .masthead {
     position: fixed;
     top: 0;
   }
-  /* Start the vertical centering */
+  
   .site-wrapper-inner {
     vertical-align: middle;
   }
 
 }
+
+/* Parallax Interfaces */
+
 .parallax {
   background-image: url("dish.jpg");
-  min-height: 300px; 
+  min-height: 500px; 
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -161,17 +184,16 @@ body {
 
 .parallax2 {
   background-image: url("drive.jpg");
-  min-height: 400px; 
+  min-height: 500px; 
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   }
 
-
   .parallax3 {
   background-image: url("hand.jpg");
-  min-height: 300px; 
+  min-height: 600px; 
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -180,13 +202,122 @@ body {
 
   .parallax4 {
     background-image: url("dinner.jpg");
-    min-height: 400px; 
+    min-height: 600px; 
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     }
 
+    .parallax5 {
+    background-image: url("wine.gif");
+    min-height: 600px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
+    .parallax6 {
+      background-image: url("hoola.gif");
+    min-height: 500px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
+    .parallax7 {
+      background-image: url("cheers.jpg");
+    min-height: 600px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
+
+    .parallax9 {
+      background-image: url("drive.gif");
+    min-height: 600px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
+    .parallax10 {
+      background-image: url("driving.gif");
+    min-height: 500px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
+    .parallax11 {
+      background-image: url("serve.gif");
+    min-height: 600px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
+    .parallax12 {
+      background-image: url("driving2.gif");
+    min-height: 500px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
+    .parallaxSave1 {
+      background-image: url("daydrive.gif");
+    min-height: 500px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
+    .parallaxSave2 {
+      background-image: url("city.gif");
+    min-height: 500px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
+    .parallaxSave3 {
+      background-image: url("nightdine.gif");
+    min-height: 500px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
+    .parallaxSave12 {
+      background-image: url("hand.jpg");
+    min-height: 500px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
+    .parallaxCode {
+      background-image: url("coding.gif");
+    min-height: 500px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+    
 .ParallaxImage {
   background-attachment: fixed;
   background-position: 50% 50%;
@@ -204,8 +335,9 @@ body {
   font-family: 'Aleo', serif;
 
 }
+
 .ParallaxVideo{ 
-  height: 400px;
+  height: 700px;
   padding-bottom: 50px;
   padding-top: 50px; 
   }
@@ -215,6 +347,19 @@ body {
   top:0;
   z-index: -999;
   }
+
+  .ParallaxVideoForm{ 
+    height: 300px;
+    padding-bottom: 50px;
+    padding-top: 50px; 
+    }
+    .ParallaxVideoForm video{ 
+    min-width: 100%;
+    position: fixed;
+    top:0;
+    z-index: -999;
+    }
+
   .ParallaxVideo h1 {
     font-family: 'Aleo', serif;
     color: #fff;
@@ -223,15 +368,3 @@ body {
     text-align: center;
     text-transform: uppercase;
   }
-
-  .ParallaxVideo2{ 
-    height: 10px;
-    padding-bottom: 10px;
-    padding-top: 10px; 
-    }
-    .ParallaxVideo2 video{ 
-    min-width: 10%;
-    position: absolute;
-    z-index: -999;
-    
-    }
