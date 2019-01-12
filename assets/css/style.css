@@ -273,6 +273,42 @@ h3{
     background-size: cover;
     }
 
+    .parallaxSave1 {
+      background-image: url("daydrive.gif");
+    min-height: 500px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
+    .parallaxSave2 {
+      background-image: url("city.gif");
+    min-height: 500px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
+    .parallaxSave3 {
+      background-image: url("nightdine.gif");
+    min-height: 500px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
+    .parallaxSave12 {
+      background-image: url("hand.jpg");
+    min-height: 500px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
     .parallaxCode {
       background-image: url("coding.gif");
     min-height: 500px; 
